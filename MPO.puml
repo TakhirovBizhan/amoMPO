@@ -150,12 +150,6 @@ entity Pipeline {
   account_id : int
 }
 
-entity Status {
-  + id : int
-  --
-  name : string
-}
-
 entity Account {
   + id : int
   --
@@ -346,7 +340,7 @@ Contact }o--o{ customers
 User||--|| customers
 customers }o--|| Account
 UserRights ||--o{ Pipeline : 1 to m
-UserRights ||--o{ Status : 1 to m
+UserRights ||--o{ PipelineStage : 1 to m
 
 
 
@@ -399,6 +393,6 @@ Lead }o--|| PipelineStage : status_id
 Lead ||--o{ UsersGroup : 1 to m
 Pipeline ||--o{ Lead
 Pipeline ||--o{ IncomingLead
-Pipeline ||--o{ Status        : embedded_statuses
+Pipeline ||--o{ PipelineStage        : embedded_statuses
 
 @enduml
