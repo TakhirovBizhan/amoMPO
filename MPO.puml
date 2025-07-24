@@ -1,0 +1,404 @@
+@startuml
+
+entity IncomingLead {
+  + uid : string
+  --
+  source_uid : string
+  source_name : string
+  category : string
+  pipeline_id : int
+  created_at : int
+  metadata : object
+  account_id : int|null
+}
+
+entity Lead {
+  + id : int
+  --
+  name : string
+  price : int
+  responsible_user_id : int
+  group_id : int
+  status_id : int
+  pipeline_id : int
+  loss_reason_id : int
+  source_id : int
+  created_by : int
+  updated_by : int
+  created_at : int
+  updated_at : int
+  closed_at : int
+  closest_task_at : int
+  custom_fields_values : array|null
+  score : int|null
+  account_id : int
+  contact_id : int|null
+  company : int|null
+  labor_cost : int
+  is_price_modified_by_robot : bool
+}
+
+entity Contact {
+  + id : int
+  --
+  name : string
+  first_name : string
+  last_name : string
+  responsible_user_id : int
+  group_id : int
+  created_by : int
+  updated_by : int
+  created_at : int
+  updated_at : int
+  closest_task_at : int
+  custom_fields_values : array|null
+  account_id : int
+}
+
+entity Company {
+  + id : int
+  --
+  name : string
+  responsible_user_id : int
+  group_id : int
+  created_by : int
+  updated_by : int
+  created_at : int
+  updated_at : int
+  closest_task_at : int
+  custom_fields_values : array|null
+  account_id : int
+}
+
+entity User {
+  + id : int
+  --
+  name : string
+  email : string
+  lang : string
+  mail_access : bool
+  catalog_access : bool
+  is_admin : bool
+  is_free : bool
+  is_active : bool
+  group_id : int
+  role_id : int
+}
+
+entity UserRights {
+  + id : int
+  --
+  user_id : int
+  entity_type : string 
+  pipeline_id : int
+  status_id : int
+  can_access : bool       
+}
+
+
+entity LossReason {
+  + id : int
+  --
+  name : string
+}
+
+entity Tag {
+  + id : int
+  --
+  name : string
+  color : string
+}
+
+entity Catalogs {
+  + id : int
+  --
+  name : string
+  created_by : int
+  updated_by : int
+  created_at : int
+  updated_at : int
+  sort : int
+  type : string
+  can_add_elements : bool
+  can_show_in_cards : bool
+  can_link_multiple : bool
+  can_be_deleted : bool
+  sdk_widget_code : int
+  account_id : int
+}
+
+
+entity CatalogElement {
+  + id : int
+  --
+  metadata : object
+  quantity : int
+  catalog_id : int
+  is_deleted : bool
+  custom_fields_values : array|null
+  account_id : int
+}
+
+entity Pipeline {
+  + id : int
+  --
+  name : string
+  sort : int
+  is_main : bool
+  is_unsorted_on : bool
+  is_archive : bool
+  account_id : int
+}
+
+entity Status {
+  + id : int
+  --
+  name : string
+}
+
+entity Account {
+  + id : int
+  --
+  name : string
+  subdomain : string
+  current_user_id : int
+  country : string
+  currency : string
+  currency_symbol : string
+  is_unsorted_on : bool
+  is_loss_reason_enabled : bool
+  is_helpbot_enabled : bool
+  is_technical_account : bool
+  contact_name_display_order : int
+  amojo_id : string
+  version : int
+}
+
+entity AmojoRights {
+  + account_id : int
+  --
+  can_direct : bool
+  can_create_groups : bool
+}
+
+entity UsersGroup {
+  + id : int
+  --
+  account_id : int
+  name : string
+}
+
+entity TaskType {
+  + id : int
+  --
+  account_id : int
+  name : string
+  color : string
+  icon_id : int
+  code : string
+}
+
+entity DateTimeSettings {
+  + account_id : int
+  --
+  date_format : string
+  time_format : string
+  timezone : string
+}
+
+entity EntityNames {
+  + account_id : int
+  --
+  entity : string
+  singular : string
+  plural : string
+  translation : string
+}
+
+entity PipelineStage {
+  + stage_id : int
+  --
+  name : string
+  sort : int
+  is_editable : bool
+  pipeline_id : int
+  color : string
+  type : int
+  account_id : int
+}
+
+entity Tasks {
+  + task_id: int	
+  --
+  created_by:int
+  updated_by: int	
+  created_at: int
+  updated_at: int	
+  responsible_user_id: int	
+  group_id: int	
+  entity_id: int	
+  entity_type: string
+  is_completed: bool
+  task_type_id: int	
+  text: string	
+  duration: int	
+  complete_till: int
+  result: object
+  result[text]: string
+  account_id: int
+}
+
+entity events {
+  id : string	
+  type : string	
+  entity_id : int	
+  entity_type : string	
+  created_by : int	
+  created_at : int	
+  value_after : array	
+  value_before : array	
+  account_id : int
+}
+
+entity notes {
+  id : int	
+  entity_id : int	
+  created_by : int
+  updated_by : int	
+  created_at : int	
+  updated_at : int	
+  responsible_user_id : int	
+  group_id : int	
+  note_type : string	
+  params : obj	
+  account_id : int
+}
+
+
+entity auth_tokens  {
+  account_id : int        
+  authorization_code : string  
+  refresh_token : string      
+  access_token : string        
+  issued_at : timestamp   
+  expires_in : int      
+  refresh_expires_in : int    
+}
+
+entity bannedTokens {
+  id : int
+  token : string
+  account_id : int
+  banned_at : timestamp
+  expires_at : timestamp
+}
+
+entity customers {
+  + id : int
+  --
+  name : string
+  next_price : int
+  next_date : int
+  responsible_user_id : int
+  status_id : int
+  periodicity : int
+  created_by : int
+  updated_by : int
+  created_at : int
+  updated_at : int
+  closest_task_at : int
+  is_deleted : bool
+  custom_fields_values : array|null
+  ltv : int
+  purchases_count : int
+  average_check : int
+  account_id : int
+  contact_id : int|null
+  company_id : int|null
+}
+
+entity customFields {
+  + id : int
+  --
+  name : string
+  code : string
+  sort : int
+  type : int
+  entity_type : string
+  is_predefined : bool
+  is_deletable : bool
+  remind : string|null
+  enums : array|null
+  is_api_only : bool
+  group_id : string|null
+  required_statuses : array|null
+}
+
+customFields }o--|| UsersGroup
+
+Catalogs ||--o{ CatalogElement
+Catalogs }o--|| Account
+CatalogElement }o--|| Account
+
+
+Company ||--o{ customers
+Contact }o--o{ customers
+User||--|| customers
+customers }o--|| Account
+UserRights ||--o{ Pipeline : 1 to m
+UserRights ||--o{ Status : 1 to m
+
+
+
+auth_tokens ||--o{ bannedTokens
+Account ||--o{ bannedTokens
+auth_tokens ||--|| Account
+
+User  ||--o{ notes
+notes  ||--o{ EntityNames
+Pipeline ||--o{ PipelineStage
+Account  ||--o{ notes
+Account ||--o{ PipelineStage
+Account ||--o{ AmojoRights
+Account ||--o{ UsersGroup
+Account ||--o{ TaskType
+Account ||--o{ DateTimeSettings
+Account ||--o{ EntityNames
+Account ||--o{ Contact
+Account ||--o{ Company
+Account ||--o{ Lead
+Account ||--o{ IncomingLead
+Account ||--o{ Tasks
+Account ||--o{ events
+IncomingLead ||--o{ Contact       : embedded_contacts
+IncomingLead }o--|| Company       : embedded_companies
+IncomingLead ||--o{ Lead          : embedded_leads
+
+Lead ||--o{ LossReason         : embedded_loss_reason
+Lead ||--o{ Tag                : embedded_tags
+Lead ||--o{ Contact            : embedded_contacts
+Lead }o--|| Company            : embedded_companies
+Lead ||--o{ CatalogElement     : embedded_catalog_elements
+
+Contact ||--o{ Tag                : embedded_tags
+Contact ||--o{ Company            : embedded_companies
+Contact }o--o{ Lead               : embedded_leads
+Contact ||--o{ CatalogElement     : embedded_catalog_elements
+
+Company ||--o{ Tag                : embedded_tags
+Company ||--o{ Contact            : embedded_contacts
+Company ||--o{ Lead               : embedded_leads
+Company ||--o{ CatalogElement     : embedded_catalog_elements
+
+User ||--o{ UsersGroup          : belongs_to_group
+User ||--o{ UserRights          : rights
+User ||--o{ Tasks : responsible_user_id
+User }o--|| Account : 1 to 1
+
+Lead }o--|| PipelineStage : status_id
+Lead ||--o{ UsersGroup : 1 to m
+Pipeline ||--o{ Lead
+Pipeline ||--o{ IncomingLead
+Pipeline ||--o{ Status        : embedded_statuses
+
+@enduml
