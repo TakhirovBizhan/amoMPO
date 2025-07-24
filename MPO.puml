@@ -393,7 +393,7 @@ Company ||--o{ CatalogElement     : embedded_catalog_elements
 User ||--o{ UsersGroup          : belongs_to_group
 User ||--o{ UserRights          : rights
 User ||--o{ Tasks : responsible_user_id
-User }o--|| Account : 1 to 1
+User }o--o{ Account : m to m
 
 Lead }o--|| PipelineStage : status_id
 Lead ||--o{ UsersGroup : 1 to m
