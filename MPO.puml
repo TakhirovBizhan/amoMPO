@@ -238,7 +238,6 @@ entity Tasks {
   duration: int	
   complete_till: int
   result: object
-  result[text]: string
   account_id: int
 }
 
