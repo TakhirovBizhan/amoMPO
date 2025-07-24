@@ -337,7 +337,7 @@ CatalogElement }o--|| Account
 
 Company ||--o{ customers
 Contact }o--o{ customers
-User||--|| customers
+User||--o{ customers
 customers }o--|| Account
 UserRights ||--o{ Pipeline : 1 to m
 UserRights ||--o{ PipelineStage : 1 to m
@@ -369,8 +369,8 @@ IncomingLead }o--|| Company       : embedded_companies
 IncomingLead ||--o{ Lead          : embedded_leads
 
 Lead ||--o{ LossReason         : embedded_loss_reason
-Lead ||--o{ Tag                : embedded_tags
-Lead ||--o{ Contact            : embedded_contacts
+Lead }o--o{ Tag                : embedded_tags
+Lead }o--o{ Contact            : embedded_contacts
 Lead }o--|| Company            : embedded_companies
 Lead ||--o{ CatalogElement     : embedded_catalog_elements
 
@@ -378,6 +378,7 @@ Contact ||--o{ Tag                : embedded_tags
 Contact ||--o{ Company            : embedded_companies
 Contact }o--o{ Lead               : embedded_leads
 Contact ||--o{ CatalogElement     : embedded_catalog_elements
+Contact }o--|| User : m to 1
 
 Company ||--o{ Tag                : embedded_tags
 Company ||--o{ Contact            : embedded_contacts
@@ -389,6 +390,7 @@ User ||--o{ UserRights          : rights
 User ||--o{ Tasks : responsible_user_id
 User }o--o{ Account : m to m
 
+Lead ||--o{ User: 1 to m
 Lead }o--|| PipelineStage : status_id
 Lead ||--o{ UsersGroup : 1 to m
 Pipeline ||--o{ Lead
