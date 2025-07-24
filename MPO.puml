@@ -230,8 +230,8 @@ entity Tasks {
   updated_at: int	
   responsible_user_id: int	
   group_id: int	
-  entity_id: int	
-  entity_type: string
+  entity_id: int|null	
+  entity_type: string|null
   is_completed: bool
   task_type_id: int	
   text: string	
