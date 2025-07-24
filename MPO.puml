@@ -201,7 +201,7 @@ entity DateTimeSettings {
 }
 
 entity EntityNames {
-  + account_id : int
+  + id : int
   --
   entity : string
   singular : string
@@ -327,6 +327,15 @@ entity customFields {
   required_statuses : array|null
 }
 
+TaskType ||--o{ Tasks
+Lead ||--o{ Tasks
+customers ||--o{ Tasks
+Contact ||--o{ Tasks
+
+customFields }o--o{ customers
+customFields }o--o{ Company
+customFields }o--o{ Lead
+customFields }o--o{ Contact 
 customFields }o--|| UsersGroup
 
 Catalogs ||--o{ CatalogElement
