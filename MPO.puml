@@ -398,7 +398,7 @@ User ||--o{ UserRights          : rights
 User ||--o{ Tasks : responsible_user_id
 User }o--o{ Account : m to m
 
-Lead ||--o{ User: 1 to m
+User ||--o{ Lead: 1 to m
 Lead }o--|| PipelineStage : status_id
 Lead ||--o{ UsersGroup : 1 to m
 Pipeline ||--o{ Lead
